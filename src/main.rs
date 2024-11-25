@@ -7,12 +7,12 @@ use std::{
     path::PathBuf,
 };
 
-use list::{get_save_list, list};
+use list::get_save_list;
 use nsm_functions::*;
 
 use directory_logic::{get_dirs::*, sanity_check};
 use nsm_save_data::nsm_save::NSMSave;
-use restore::restore;
+//use restore::restore;
 
 fn main() -> Result<(), Error> {
     // nsm save directory - nsm_save_path
@@ -69,7 +69,7 @@ fn handle_input(
     steam_save_path: &PathBuf,
     save_list: &mut Vec<NSMSave>,
 ) -> Result<(), Error> {
-    let len = args.len();
+    //let len = args.len();
     match args[0].as_str() {
         "help" => {
             help::help();
@@ -78,8 +78,8 @@ fn handle_input(
         "list" => list::list(nsm_save_path),
         "backup" => backup::backup(nsm_save_path, steam_save_path, save_list),
         "restore" => restore::restore(nsm_save_path, steam_save_path, save_list),
-        "rename" => Ok(()),
-        "delete" => Ok(()),
+        "rename" => rename::rename(nsm_save_path, save_list),
+        "delete" => delete::delete(nsm_save_path, save_list),
         "quit" => Err(std::io::Error::new(io::ErrorKind::Other, "quit")),
         _ => Ok(()),
     }

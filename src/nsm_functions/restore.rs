@@ -1,20 +1,20 @@
 use crate::{
-    backup, input::{get_valid_nsm_save_name, get_yes_or_no}, nsm_save_data::nsm_save::{is_valid_nsm_save_name, NSMSave}
+    backup,
+    input::{get_valid_nsm_save_name, get_yes_or_no},
+    nsm_save_data::nsm_save::NSMSave,
 };
 use copy_dir::copy_dir;
-use std::{fs, io, path::PathBuf};
+use std::{fs, path::PathBuf};
 
 pub fn restore(
     nsm_save_path: &PathBuf,
     steam_save_path: &PathBuf,
     save_list: &mut Vec<NSMSave>,
 ) -> Result<(), std::io::Error> {
-    let mut user_input = String::new();
-
     let selected_save: NSMSave;
     'outer: loop {
         // get input
-        user_input = get_valid_nsm_save_name("Enter the name of the save to restore:");
+        let user_input = get_valid_nsm_save_name("Enter the name of the save to restore:");
 
         // see if given save exists
         for save in save_list.iter() {

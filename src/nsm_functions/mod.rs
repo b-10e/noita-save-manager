@@ -1,9 +1,8 @@
 pub mod backup;
 pub mod delete;
 pub mod help;
-pub mod info;
+pub mod input;
 pub mod list;
 pub mod quit;
 pub mod rename;
 pub mod restore;
-pub mod input;

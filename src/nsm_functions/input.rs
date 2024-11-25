@@ -7,12 +7,16 @@ pub fn get_valid_nsm_save_name(prompt: &str) -> String {
     loop {
         // get input
         println!("{prompt}");
-        io::stdin().read_line(&mut user_input).expect("Couldn't get input!");
+        io::stdin()
+            .read_line(&mut user_input)
+            .expect("Couldn't get input!");
         // format input
         user_input = user_input.trim().to_string();
         // First make sure the given name is valid
         if !is_valid_nsm_save_name(&user_input) {
-            println!("Invalid name. Please make sure name only contains characters A-Z, a-z, 0-9, -, _");
+            println!(
+                "Invalid name. Please make sure name only contains characters A-Z, a-z, 0-9, -, _"
+            );
             continue;
         }
         break;
@@ -25,17 +29,18 @@ pub fn get_yes_or_no(prompt: &str) -> bool {
     loop {
         // get input
         println!("{prompt}");
-        io::stdin().read_line(&mut user_input).expect("Couldn't get input!");
+        io::stdin()
+            .read_line(&mut user_input)
+            .expect("Couldn't get input!");
         // format input
         user_input = user_input.trim().to_lowercase().to_string();
         if user_input == "y" || user_input == "yes" {
             return true;
         } else if user_input == "n" || user_input == "no" {
-            return false
+            return false;
         } else {
             println!("Invalid input: Please enter \'y\'/\"yes\" or \'n\'/\"no\"");
             continue;
         }
     }
 }
-

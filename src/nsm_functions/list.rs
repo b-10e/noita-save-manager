@@ -1,6 +1,6 @@
 use std::{fs, path::PathBuf};
 
-use crate::nsm_save_data::nsm_save::{read_nsm_file, NSMFile, NSMSave};
+use crate::nsm_save_data::nsm_save::{read_nsm_file, NSMSave};
 
 pub fn list(nsm_save_path: &PathBuf) -> Result<(), std::io::Error> {
     // Get list of all currently stored saves

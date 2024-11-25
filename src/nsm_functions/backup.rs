@@ -1,11 +1,12 @@
 use crate::{
-    input::{get_valid_nsm_save_name, get_yes_or_no}, list::SaveListTraits, nsm_save_data::nsm_save::{is_valid_nsm_save_name, read_nsm_file, NSMFile, NSMSave}
+    input::{get_valid_nsm_save_name, get_yes_or_no},
+    list::SaveListTraits,
+    nsm_save_data::nsm_save::{read_nsm_file, NSMFile, NSMSave},
 };
 use chrono::Local;
 use copy_dir::copy_dir;
 use std::{
     fs,
-    io::{self},
     path::{Path, PathBuf},
 };
 
@@ -24,9 +25,7 @@ pub fn backup(
             let mut user_input: String;
             'outer: loop {
                 // get input
-                user_input = get_valid_nsm_save_name(
-                    "What would you like to name this save? "
-                );
+                user_input = get_valid_nsm_save_name("What would you like to name this save? ");
 
                 // Make sure name isn't already taken by another save
                 for save in save_list.iter() {
@@ -55,7 +54,10 @@ pub fn backup(
     // Make sure name isn't already taken by another save
     for save in &mut *save_list {
         if save.name == nsm_file.name {
-            if get_yes_or_no(&format!("There is already a save called \"{}\". Would you like to overwrite? (y/n) ", save.name)) {
+            if get_yes_or_no(&format!(
+                "There is already a save called \"{}\". Would you like to overwrite? (y/n)",
+                save.name
+            )) {
                 fs::remove_dir_all(save.save_path.clone())?;
                 break;
             } else {

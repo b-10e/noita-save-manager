@@ -25,11 +25,14 @@ fn main() -> Result<(), Error> {
     
     // ensure everything exists correctly
     sanity_check::create_nsm_data(&nsm_save_path, &nsm_config_path)?;
-    sanity_check::noita_steam_path_exists(&steam_save_path)?;
+    match sanity_check::noita_steam_path_exists(&steam_save_path) {
+        Ok(_) => (),
+        Err(_) => return Err(Error::new(std::io::ErrorKind::NotFound, "Could not find Noita installation!"))
+    }
 
     // create save list
     let mut save_list = get_save_list(&nsm_save_path)?;
-    
+
     // start nsm
     run(&nsm_save_path, &steam_save_path, &mut save_list)
 }

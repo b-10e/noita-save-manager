@@ -22,12 +22,14 @@ fn main() -> Result<(), Error> {
     let nsm_save_path = get_nsm_save_path()?;
     let nsm_config_path = get_nsm_config_path()?;
     let steam_save_path = get_noita_save_path()?;
-    let mut save_list = get_save_list(&nsm_save_path)?;
-
+    
     // ensure everything exists correctly
     sanity_check::create_nsm_data(&nsm_save_path, &nsm_config_path)?;
     sanity_check::noita_steam_path_exists(&steam_save_path)?;
 
+    // create save list
+    let mut save_list = get_save_list(&nsm_save_path)?;
+    
     // start nsm
     run(&nsm_save_path, &steam_save_path, &mut save_list)
 }
